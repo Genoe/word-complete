@@ -6,13 +6,8 @@ class Chatroom extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = { 
-            chats: [
-                "Hi",
-                "Wow",
-                "Such Realtime",
-                "Very React"
-            ]
+        this.state = {
+            chats: props.messageHistory
         };
     }
     

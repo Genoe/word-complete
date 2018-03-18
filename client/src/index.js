@@ -7,7 +7,8 @@ let messageHistory = [
     "Hi",
     "Wow",
     "Such Realtime",
-    "Very React"
+    "Very React",
+    "Oi!"
 ];
 
 
@@ -30,7 +31,7 @@ let messageHistory = [
 
 
 ReactDOM.render(
-    <Chatroom />,
+    <Chatroom messageHistory={messageHistory} />,
     document.getElementById('root')
 );
 
