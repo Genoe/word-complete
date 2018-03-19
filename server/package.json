@@ -1,0 +1,14 @@
+{
+  "name": "word-complete-server",
+  "version": "1.0.0",
+  "description": "The backend for the word-complete app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wyatt Weisensel",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.0.4"
+  }
+}
