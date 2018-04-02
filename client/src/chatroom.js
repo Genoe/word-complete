@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message';
-import { subscribeToTimer } from './api';
+import { subscribeToChat, emitMessage } from './api';
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -10,14 +10,15 @@ class Chatroom extends React.Component {
         this.state = {
             chats: props.messageHistory
         };
-        subscribeToTimer((err, timestamp) => this.setState({ 
+        subscribeToChat((err, msg) => this.setState({ 
             // timestamp 
-            chats: this.state.chats.concat(timestamp)
+            chats: this.state.chats.concat(msg)
           }));
     }
     
     handleSubmit(event) {
         // messageHistory.concat(this.state.value);
+        emitMessage(ReactDOM.findDOMNode(this.refs.msg).value)
         this.setState({ 
             chats: this.state.chats.concat([ReactDOM.findDOMNode(this.refs.msg).value]) 
         });

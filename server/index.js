@@ -1,11 +1,12 @@
 const io = require('socket.io')();
 
-io.on('connection', (client) => {
-  client.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
+io.on('connection', function(socket) {
+  console.log('a user connected');
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
   });
 });
 
