@@ -4,7 +4,7 @@ To start the project, open a terminal and navigate to the /server folder. Then r
 To start the client part of the project, naviage to /client and run `npm start`. A browser window will now open with the chat log and input form.
 You can open the client (localhost:3000 by default) in multiple tabs or browsers and all instances of the client will receive messages sent by other clients.
 
-![Screenshot of App](/App/screenshot.png)
+![Screenshot of App](screenshot.png)
 
 #Future Improvements
 * Clear out chat input box after the user clicks Enter or the Send button.
