@@ -6,6 +6,6 @@ You can open the client (localhost:3000 by default) in multiple tabs or browsers
 
 ![Screenshot of App](/screenshot.PNG)
 
-#Future Improvements
+# Future Improvements
 * Clear out chat input box after the user clicks Enter or the Send button.
 * Use ExpressJs and PassportJs to add authentication and user accounts.
