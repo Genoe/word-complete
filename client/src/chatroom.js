@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message';
-import { subscribeToChat, emitMessage } from './api';
+import { subscribeToChat, emitMessage, emitUsername } from './api';
+
+// let username;
 
 class Chatroom extends React.Component {
     constructor(props) {
@@ -13,12 +15,18 @@ class Chatroom extends React.Component {
         subscribeToChat((err, msg) => this.setState({ 
             // timestamp 
             chats: this.state.chats.concat(msg)
-          }));
+        }));
+        this.username = prompt("Please enter a username");
+        emitUsername(this.username);
+    }
+
+    componentDidMount() {
+        
     }
     
     handleSubmit(event) {
         // messageHistory.concat(this.state.value);
-        emitMessage(ReactDOM.findDOMNode(this.refs.msg).value)
+        emitMessage(ReactDOM.findDOMNode(this.refs.msg).value);
         this.setState({ 
             chats: this.state.chats.concat([ReactDOM.findDOMNode(this.refs.msg).value]) 
         });
@@ -31,6 +39,7 @@ class Chatroom extends React.Component {
         const listMessages = messages.map((msg, index) =>
             <Message key={index} value={msg} />
         );
+
         return (
             <div id="container">
                 <ul id="messages">{listMessages}</ul>
