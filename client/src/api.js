@@ -12,7 +12,7 @@ function subscribeToChat(cb) {
 // TODO: showPendingMsg is not being used yet. However, should it be set up
 // where the "please wait" is always shown, and there is another "connected to player" event
 // that will give the socketId of the opponent?
-function showPendingMsg(cb) {
+function subscribeToMatchingService(cb) {
   socket.on('pending', msg => cb(null, msg, socketId));
 }
 
@@ -24,4 +24,4 @@ function emitUsername(username) {
   socket.emit('username', username);
 }
 
-export { subscribeToChat, emitMessage, emitUsername, showPendingMsg };
+export { subscribeToChat, emitMessage, emitUsername, subscribeToMatchingService };

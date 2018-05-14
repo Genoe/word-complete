@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message';
-import { subscribeToChat, emitMessage, emitUsername } from './api';
+import { subscribeToChat, emitMessage, emitUsername, subscribeToMatchingService } from './api';
 
 // let username;
 
@@ -16,8 +16,24 @@ class Chatroom extends React.Component {
             // timestamp 
             chats: this.state.chats.concat(msg)
         }));
-        this.username = prompt("Please enter a username");
+        this.username = prompt("Please enter a username"); // TODO: When the react app is first ran (npm start) the prompt doesn't appear. Have to refresh the page.
         emitUsername(this.username);
+        // After a username has been sent back to the server, wait for a match
+        subscribeToMatchingService((err, msg, id) => {
+            if (err) {
+                this.setState({
+                    chats: this.state.chats.concat(JSON.stringify(err))
+                });
+            }
+            if (id) {
+                this.setState({
+                    opponentId: id
+                });
+            }
+            this.setState({
+                chats: this.state.chats.concat(msg)
+            });
+        });
     }
 
     componentDidMount() {

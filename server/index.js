@@ -7,7 +7,7 @@ io.on('connection', function(socket) {
   // TODO: Switch to arrow functions
   socket.on('username', function(username) {
     console.log(`User: ${username} has connected`);
-    let matchedUser = users.findIndex(function (element) {
+    let matchedUserIndex = users.findIndex(function (element) {
       return element.pending
     });
     users.push({
@@ -16,8 +16,8 @@ io.on('connection', function(socket) {
       pending: true, // is this user waiting to be matched up?
       oppenentId: null // When users disconnect, delete that user and set their opponent's pending to true and opponentId to null
     });
-    if (matchedUser) { // TODO: Does there need to be something to continually go through and try to match people up? Or just check each time someone connects?
-      socket.emit('pending', `You have been matched with ${matchedUser.username}`);
+    if (matchedUserIndex !== -1) { // TODO: Does there need to be something to continually go through and try to match people up? Or just check each time someone connects?
+      socket.emit('pending', `You have been matched with ${users[matchedUserIndex].username}`);
     } else {
       socket.emit('pending', `Hello ${username}. Plese wait for our matchmaking sauce to finish...`, socket.id);
     }
