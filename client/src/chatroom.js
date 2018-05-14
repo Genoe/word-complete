@@ -25,11 +25,6 @@ class Chatroom extends React.Component {
                     chats: this.state.chats.concat(JSON.stringify(err))
                 });
             }
-            if (id) {
-                this.setState({
-                    opponentId: id
-                });
-            }
             this.setState({
                 chats: this.state.chats.concat(msg)
             });
