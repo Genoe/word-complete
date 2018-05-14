@@ -34,9 +34,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    const index = users.findIndex(element => element.id === socket.id);
+    // const index = users.findIndex(element => element.id === socket.id);
+    delete users[socket.id];
     // TODO: Set opponent back to pending. Alert them.
-    users.splice(index, 1);
+    // users.splice(index, 1);
     console.log('user disconnected');
     console.log(`Connected Users: ${JSON.stringify(users)}`);
   });
