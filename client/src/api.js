@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:8000');
-let socketId;
+
+const socket = openSocket('http://localhost:8000');
 
 // In chatroom.js, the method passed in adds the received message to the chat.
 // If that's all the event needs to do, it can go here
