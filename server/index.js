@@ -1,25 +1,23 @@
 const io = require('socket.io')();
 
-let users = {};
+const users = {};
 
-io.on('connection', function(socket) {
+io.on('connection', (socket) => {
   console.log('a user connected');
   // TODO: Switch to arrow functions
-  socket.on('username', function(username) {
+  socket.on('username', (username) => {
     console.log(`User: ${username} has connected`);
     // let matchedUserIndex = users.findIndex(function (element) {
     //   return element.pending
     // });
-    let matchedUserId = Object.keys(users).find(function (key) {
-      return users[key].pending;
-    });
+    const matchedUserId = Object.keys(users).find(key => users[key].pending);
     users[socket.id] = {
       // id: socket.id,
-      username: username,
+      username,
       pending: true, // is this user waiting to be matched up? TODO: Just rely on opponentId being false/falsy?
-      oppenentId: null // When users disconnect, delete that user and set their opponent's pending to true and opponentId to null
+      oppenentId: null, // When users disconnect, delete that user and set their opponent's pending to true and opponentId to null
     };
-    if (matchedUserId) { // TODO: Does there need to be something to continually go through and try to match people up? Or just check each time someone connects?
+    if (matchedUserId) { // TODO: Handle people leaving but not others joining. Match w/ others who's opponent also left
       socket.emit('pending', `You have been matched with ${users[matchedUserId].username}`);
       users[socket.id].oppenentId = matchedUserId;
       users[socket.id].pending = false;
@@ -30,15 +28,13 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('chat message', function(msg) {
-    console.log('message: ' + msg);
+  socket.on('chat message', (msg) => {
+    console.log(`message: ${msg}`);
     socket.broadcast.to(users[socket.id].oppenentId).emit('chat message', msg);
   });
 
-  socket.on('disconnect', function() {
-    let index = users.findIndex(function (element) {
-      return element.id === socket.id;
-    });
+  socket.on('disconnect', () => {
+    const index = users.findIndex(element => element.id === socket.id);
     // TODO: Set opponent back to pending. Alert them.
     users.splice(index, 1);
     console.log('user disconnected');
